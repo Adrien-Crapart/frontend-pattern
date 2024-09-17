@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- BoxIcons v2.1.0 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+      integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Open Sans Font -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open Sans"
+    />
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="./css/touch_swipe.css" />
+  </head>
+  <body>
+    <div class="list">
+      <div class="list-item">
+        <button class="settings">
+          <div class="list-icon">
+            <i class="bx bxs-share"></i>
+          </div>
+        </button>
+        <div class="list-content">
+          <div class="profile">
+            <img src="./images/01.png" alt="..." />
+          </div>
+          <div class="caption">
+            <h3>Chris Evans</h3>
+            <p>Captain America</p>
+          </div>
+        </div>
+        <button class="delete">
+          <div class="list-icon">
+            <i class="bx bxs-trash"></i>
+          </div>
+        </button>
+      </div>
+
+      <div class="list-item">
+        <button class="settings">
+          <div class="list-icon">
+            <i class="bx bxs-share"></i>
+          </div>
+        </button>
+        <div class="list-content">
+          <div class="profile">
+            <img src="./images/02.png" alt="..." />
+          </div>
+          <div class="caption">
+            <h3>Scarlett Johansson</h3>
+            <p>Black Widow</p>
+          </div>
+        </div>
+        <button class="delete">
+          <div class="list-icon">
+            <i class="bx bxs-trash"></i>
+          </div>
+        </button>
+      </div>
+
+      <div class="list-item">
+        <button class="settings">
+          <div class="list-icon">
+            <i class="bx bxs-share"></i>
+          </div>
+        </button>
+        <div class="list-content">
+          <div class="profile">
+            <img src="./images/03.png" alt="..." />
+          </div>
+          <div class="caption">
+            <h3>Chris Hemsworth</h3>
+            <p>Thor</p>
+          </div>
+        </div>
+        <button class="delete">
+          <div class="list-icon">
+            <i class="bx bxs-trash"></i>
+          </div>
+        </button>
+      </div>
+
+      <div class="list-item">
+        <button class="settings">
+          <div class="list-icon">
+            <i class="bx bxs-share"></i>
+          </div>
+        </button>
+        <div class="list-content">
+          <div class="profile">
+            <img src="./images/04.png" alt="..." />
+          </div>
+          <div class="caption">
+            <h3>Brie Larson</h3>
+            <p>Captain Marvel</p>
+          </div>
+        </div>
+        <button class="delete">
+          <div class="list-icon">
+            <i class="bx bxs-trash"></i>
+          </div>
+        </button>
+      </div>
+
+      <div class="list-item">
+        <button class="settings">
+          <div class="list-icon">
+            <i class="bx bxs-share"></i>
+          </div>
+        </button>
+        <div class="list-content">
+          <div class="profile">
+            <img src="./images/05.png" alt="..." />
+          </div>
+          <div class="caption">
+            <h3>Tom Holland</h3>
+            <p>Spider Man</p>
+          </div>
+        </div>
+        <button class="delete">
+          <div class="list-icon">
+            <i class="bx bxs-trash"></i>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- AnimeJS v3.2.1 -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+      integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="text/javascript">
+      const items = document.querySelectorAll(".list-item");
+
+      items.forEach((item) => {
+        item.addEventListener("touchstart", (e) => {
+          e.target.dataset.x =
+            Number(e.touches[0].pageX) + Number(e.target.dataset.move) || 0;
+        });
+
+        item.addEventListener("touchmove", (e) => {
+          let moveX = Number(e.target.dataset.x) - e.touches[0].pageX;
+
+          moveX > 130 ? (moveX = 130) : null;
+          moveX < -130 ? (moveX = -130) : null;
+
+          e.target.dataset.move = moveX;
+
+          anime({
+            targets: e.target,
+            translateX: -Number(e.target.dataset.move),
+            duration: 300,
+          });
+        });
+
+        item.addEventListener("touchend", (e) => {
+          let elementMove = e.target.dataset.move;
+
+          if (elementMove > 100) elementMove = 100;
+          else if (elementMove < -100) elementMove = -100;
+          else elementMove = 0;
+
+          items.forEach((item) => {
+            let content = item.querySelector(".list-content");
+
+            if (content === e.target) {
+              return null;
+            }
+
+            content.dataset.x = 0;
+            content.dataset.move = 0;
+
+            anime({
+              targets: content,
+              translateX: 0,
+            });
+          });
+
+          setTimeout(() => {
+            anime({
+              targets: e.target,
+              translateX: -Number(elementMove),
+            });
+          }, 1);
+        });
+      });
+    </script>
+  </body>
+</html>

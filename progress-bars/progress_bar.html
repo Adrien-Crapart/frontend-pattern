@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
+    <link rel="stylesheet" href="./css/style_css.css" />
+  </head>
+  <body>
+    <section class="skills">
+      <div class="section-header">
+        <h1>My Coding Skills</h1>
+        <hr />
+      </div>
+
+      <div class="progress">
+        <span>HTML</span>
+        <div class="progress-bar" data-percent="85">85%</div>
+      </div>
+
+      <div class="progress">
+        <span>CSS</span>
+        <div class="progress-bar" data-percent="70">75%</div>
+      </div>
+
+      <div class="progress">
+        <span>Javascript</span>
+        <div class="progress-bar" data-percent="55">55%</div>
+      </div>
+    </section>
+
+    <script type="text/javascript">
+      const progressBars = document.querySelectorAll(".progress-bar");
+
+      for (let progressBar of progressBars) {
+        progressBar.style.width =
+          progressBar.getAttribute("data-percent") + "%";
+      }
+    </script>
+  </body>
+</html>
